@@ -81,7 +81,7 @@ def load_insole_mat(file_name):
         return data
     
     except Exception as e:
-        print(f"❌ HDF5 loader failed: {e}")
+        print(f" HDF5 loader failed: {e}")
         return None
 
     
@@ -90,7 +90,7 @@ def load_insole_mat(file_name):
 def load_label_and_data(path_mat):
     data = load_insole_mat(path_mat)
     if data is None:
-        print(f"⚠️ Skipping {session} (no valid .mat file).")
+        print(f" Skipping {session} (no valid .mat file).")
         return None, None, None, None
 
     DL = unify_insole_structure(data["InsoleL"])
@@ -496,19 +496,19 @@ if __name__ == "__main__":
 
             # Skip if features already exist
             if os.path.exists(output_file):
-                print(f"✅ Features already exist for {session}, skipping...")
+                print(f" Features already exist for {session}, skipping...")
                 continue
             # Skip if no session file
             if not os.path.exists(session_file):
-                print(f"⚠️ No sessionData.mat found in {session}, skipping...")
+                print(f" No sessionData.mat found in {session}, skipping...")
                 continue
 
-            print(f"\n📌 Processing {session}...")
+            print(f"\n Processing {session}...")
 
             # Load data
             labels_Cam, labels_AP, DL, DR = load_label_and_data(session_file)
             if labels_Cam is None:
-                print(f"⚠️ Skipping {session} (no valid .mat file).")
+                print(f" Skipping {session} (no valid .mat file).")
                 continue
 
             # Filter + normalize
@@ -520,6 +520,6 @@ if __name__ == "__main__":
 
             # Save output
             df.to_csv(output_file, index=False)
-            print(f"✅ Saved → {output_file}   ({len(df)} windows)")
+            print(f" Saved → {output_file}   ({len(df)} windows)")
     
-    print("\n🎉 All sessions processed!")
+    print("\n All sessions processed!")
